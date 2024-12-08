@@ -9,16 +9,13 @@
             <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
                 <div class="card shadow-lg">
                     <div class="card-body p-5">
-                        <div class="text-center mb-5">
-                            <img src="{{ asset('assets\images\login_logo.jpg') }}" alt="logo" width="100">
-                        </div>
                         {{-- <h1 class="fs-4 card-title fw-bold mb-4 text-center">Login</h1> --}}
                         <form method="post" class="needs-validation" novalidate="" autocomplete="off" 
-                            id="formLogin" action="{{ route('actionLogin') }}">
+                            id="formLogin" action="{{ route('actionRegister') }}">
                             @csrf
                             <div class="mb-3">
                                 {{-- <label class="mb-2 text-muted" for="email">Username</label> --}}
-                                <input id="username" type="text" class="form-control" name="username" placeholder="NIS" required>
+                                <input id="username" type="text" class="form-control" name="username" placeholder="Masukkan NIS" required>
                                 <div class="invalid-feedback">
                                     NIS harus diisi!
                                 </div>
@@ -31,22 +28,35 @@
                                         Lupa Password?
                                     </a> --}}
                                 </div>
-                                <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+                                <input id="password" type="password" class="form-control" name="password" placeholder="Masukkan Password" required>
                                 <div class="invalid-feedback">
                                     Password harus diisi!
                                 </div>
                             </div>
 
+                            <div class="mb-3">
+                                <div class="mb-2 w-100">
+                                    {{-- <label class="text-muted" for="password">Password</label> --}}
+                                    {{-- <a href="forgot.html" class="float-end">
+                                        Lupa Password?
+                                    </a> --}}
+                                </div>
+                                <input id="password" type="password" class="form-control" name="confirm_password" placeholder="Masukkan Konfirmasi Password" required>
+                                <div class="invalid-feedback">
+                                    Konfirmasi Password harus diisi!
+                                </div>
+                            </div>
+
                             <div class="align-items-center">
                                 <button type="submit" class="btn btn-primary col-12">
-                                    Login
+                                    Daftar
                                 </button>
                             </div>
                         </form>
                     </div>
                     <div class="card-footer py-3 border-0">
                         <div class="text-center">
-                            Belum punya akun? <a href="register" class="text-dark">Register</a>
+                            Sudah punya akun? <a href="login" class="text-dark">Login</a>
                         </div>
                     </div>
                 </div>
