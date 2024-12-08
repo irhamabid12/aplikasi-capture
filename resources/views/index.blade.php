@@ -133,12 +133,32 @@
 
               if (targetTab === "#pills-camera") {
                   // Tab tengah ditekan, nyalakan webcam
-                  navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
-                      webcamStream = stream;
-                      video.srcObject = stream;
-                  }).catch((error) => {
-                      swal("Error", "Webcam tidak dapat diakses", "error");
-                  });
+                  let constraints = {
+                      video: { facingMode: "environment" } // Default ke kamera belakang
+                  };
+
+                  navigator.mediaDevices.getUserMedia(constraints)
+                      .then((stream) => {
+                          webcamStream = stream;
+                          video.srcObject = stream;
+                      })
+                      .catch((error) => {
+                          console.error("Camera Belakang tidak dapat diakses: ", error);
+
+                          // Jika kamera belakang tidak tersedia, fallback ke kamera depan
+                          constraints = {
+                              video: { facingMode: "user" } // Fallback ke kamera depan
+                          };
+
+                          navigator.mediaDevices.getUserMedia(constraints)
+                              .then((stream) => {
+                                  webcamStream = stream;
+                                  video.srcObject = stream;
+                              })
+                              .catch((err) => {
+                                  swal("Error", "Camera tidak dapat diakses.", "error");
+                              });
+                      });
               } else {
                   // Matikan webcam saat meninggalkan tab
                   if (webcamStream) {
