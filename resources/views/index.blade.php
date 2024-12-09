@@ -2,6 +2,35 @@
 
 @section('title', 'Dashboard')
 @section('content')
+<style>
+  .custom-carousel {
+    max-height: 20vh; /* Membatasi tinggi carousel hingga 30% dari viewport height */
+    overflow: hidden; /* Memastikan tidak ada konten yang keluar */
+  }
+
+  .custom-carousel .carousel-inner img {
+    height: 100%; /* Membuat gambar menyesuaikan tinggi carousel */
+    object-fit: cover; /* Memastikan gambar tetap proporsional */
+  }
+
+  .image-style {
+    height: 30vh;
+    width: 25vh;
+    object-fit: cover; /* Memastikan gambar tidak terdistorsi */
+    border-radius: 15px; /* Membuat sudut gambar membulat */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Memberikan bayangan halus */
+    margin: auto; /* Memastikan gambar terpusat */
+  }
+
+  .capture-text {
+    color: #333; /* Warna teks yang elegan */
+    font-size: 1.5rem; /* Ukuran font yang lebih besar */
+    letter-spacing: 1px; /* Memberikan jarak antar huruf */
+    text-transform: uppercase; /* Membuat teks dalam huruf kapital */
+  }
+
+
+</style>
 <div class="card text-center" style="position: fixed; height: 100%; width: 100%;">
   <div class="card-body p-3">
       <div class="tab-content" id="tabContent-dashboard" style="overflow-y: hidden">
@@ -18,13 +47,51 @@
                 
                 <!-- Teks -->
                 <div class="col-9 text-start">
-                  <h5 class="card-title text-white fw-bold mb-1">Raeesh Alam</h5>
+                  <h5 class="card-title text-white fw-bold mb-1">User Name</h5>
                   <p class="card-text text-muted fw-semibold mb-0">Researcher</p>
                 </div>
 
               </div>
             </div>
           </div>
+
+          <div class="card shadow-md border-1 rounded-3 w-100 mt-3">
+            <div class="card-body p-1">
+              <div id="carouselExampleIndicators" class="carousel slide custom-carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="{{ asset('assets/images/sentosa.jpg') }}" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="{{ asset('assets/images/versicolor.jpg') }}" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="{{ asset('assets/images/virginia.jpg') }}" class="d-block w-100" alt="...">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card border-0 rounded-3 w-100 mt-3 text-center">
+            <div class="card-body p-0">
+              <h4 class="fw-bold mt-3">Klasifikasi Bunga Iris</h4>
+              <img src="{{ asset('assets/images/sentosa.jpg') }}" alt="QR Code" class="image-style">
+              <button type="button" class="btn btn-success mt-3 col-7 ">Capture Image</button>
+            </div>
+          </div>                
         </div>
         
         <div class="tab-pane fade h-100 justify-content-center align-items-center" id="pills-camera" role="tabpanel" aria-labelledby="pills-camera-tab" tabindex="0">
@@ -90,6 +157,7 @@
           <div class="modal-body text-center">
             <!-- Tempat menampilkan hasil tangkapan -->
             <canvas id="capturedCanvas" style="width: 100%; height: auto; border: 1px solid #ccc;"></canvas>
+            <h4 class="fw-bold mt-3" id="jenisbunga"></h4>
             <div class="table-responsive mt-3">
                 <table class="table table-bordered">
                     <tbody>
@@ -198,8 +266,15 @@
         return Math.floor(Math.random() * (max - min + 1)) + min;
       }
 
+      function getRandomText() {
+          const texts = ["Iris Sentosa", "Iris Virginia", "Iris Versicolor"]; // Daftar teks
+          const randomIndex = Math.floor(Math.random() * texts.length); // Pilih indeks acak
+          return $('#jenisbunga').text(texts[randomIndex]);
+      }
+
       modal.addEventListener('shown.bs.modal', () => {
-        
+
+          getRandomText();
           const accuracyValue1 = randomNumber(50, 100);
           const accuracyValue2 = randomNumber(50, 100);
           
