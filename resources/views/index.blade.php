@@ -41,13 +41,13 @@
                 <!-- Gambar Profile -->
                 <div class="col-3 d-flex justify-content-center">
                   <div class="ratio ratio-1x1 rounded-circle overflow-hidden">
-                    <img src="{{ asset('assets/images/profile.jpg') }}" class="card-img-top img-cover" alt="Raeesh" style="object-fit: cover;">
+                    <img src="{{ asset('assets/images/sentosa.jpg') }}" class="card-img-top img-cover" alt="Raeesh" style="object-fit: cover;">
                   </div>
                 </div>
                 
                 <!-- Teks -->
                 <div class="col-9 text-start">
-                  <h5 class="card-title text-white fw-bold mb-1">User Name</h5>
+                  <h5 class="card-title text-white fw-bold mb-1">Identifikasi Species</h5>
                   <p class="card-text text-muted fw-semibold mb-0">Researcher</p>
                 </div>
 
