@@ -93,18 +93,18 @@
 <!-- end: coding css konten halaman utama -->
 
 <div class="card text-center" style="position: fixed; height: 100%; width: 100%;">
-  <div class="card-body p-3">
+  <div class="card-body p-3 overflow-y-auto">
       <!-- start::Tab konten -->    
-      <div class="tab-content" id="tabContent-dashboard" style="overflow-y: scroll;">
+      <div class="tab-content" id="tabContent-dashboard">
         <!-- start::Tab Home -->
         <div class="tab-pane fade show active h-100" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
-          <div class="card shadow-md border-0 rounded-3 w-100" style="background: linear-gradient(45deg, #6a11cb, #588ff0); padding: 15px; border-radius: 10px;"> <!-- Background gradient -->
+          <div class="card shadow-md border-0 rounded-3 w-100 mt-3" style="background: linear-gradient(45deg, #6a11cb, #588ff0); padding: 15px; border-radius: 10px;"> <!-- Background gradient -->
             <div class="card-body">
               <div class="row align-items-center">
                 <!-- Gambar Profile -->
-                <div class="col-3 d-flex justify-content-center">
+                <div class="col-3">
                   <div class="ratio ratio-1x1 rounded-circle overflow-hidden">
-                    <img src="{{ asset('assets/images/sentosa.jpg') }}" class="card-img-top img-cover" alt="Raeesh" style="object-fit: cover;">
+                    <img src="{{ asset('assets/images/sentosa.jpg') }}" class="card-img-top" alt="Raeesh">
                   </div>
                 </div>
                 
