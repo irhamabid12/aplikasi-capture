@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -11,18 +13,23 @@ class RegisterController extends Controller
         return redirect()->route('login');
     }
 
+    /* 
+    * fungsi ini digunakan untuk melakukan registrasi user baru
+    * register menggunakan parameter nama, nis dan password yang diinputkan
+    * ketika data berhasil disimpan maka akan diarahkan ke halaman login
+    * ketika data tidak berhasil disimpan maka akan diarahkan ke halaman register
+    * @param Request $request
+    */
     public function insert(Request $request)
     {
+        $regis = User::find($request->id ?? 0) ?? new User;
+        $regis->nama = $request->nama ?? null;
+        $regis->nis = $request->nis ?? null;
+        $regis->password = Hash::make($request->password ?? null);
+        $regis->save();
+
+        return redirect('/login');
         try {
-            $regis = User::find($request->id ?? 0) ?? new User;
-            $regis->first_name = $request->first_name ?? null;
-            $regis->last_name = $request->last_name ?? null;
-            $regis->date_of_birth = Carbon::parse($request->born_date ?? null)->format('Y-m-d');
-            $regis->username = $request->username ?? null;
-            $regis->password = Hash::make($request->password ?? null);
-            $regis->save();
-    
-            return redirect('/login');
         } catch (\Throwable $th) {
             return redirect('/register');    
         }

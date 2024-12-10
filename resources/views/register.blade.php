@@ -11,11 +11,18 @@
                     <div class="card-body p-5">
                         {{-- <h1 class="fs-4 card-title fw-bold mb-4 text-center">Login</h1> --}}
                         <form method="post" class="needs-validation" novalidate="" autocomplete="off" 
-                            id="formLogin" action="{{ route('actionRegister') }}">
+                            id="formRegister" action="{{ route('actionRegister') }}">
                             @csrf
                             <div class="mb-3">
                                 {{-- <label class="mb-2 text-muted" for="email">Username</label> --}}
-                                <input id="username" type="text" class="form-control" name="username" placeholder="Masukkan NIS" required>
+                                <input id="nama" type="text" class="form-control" name="nama" placeholder="Masukkan Nama" required>
+                                <div class="invalid-feedback">
+                                    NIS harus diisi!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                {{-- <label class="mb-2 text-muted" for="email">Username</label> --}}
+                                <input id="nis" type="text" class="form-control" name="nis" placeholder="Masukkan NIS" required>
                                 <div class="invalid-feedback">
                                     NIS harus diisi!
                                 </div>

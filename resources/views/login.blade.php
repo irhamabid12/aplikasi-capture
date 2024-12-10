@@ -18,7 +18,7 @@
                             @csrf
                             <div class="mb-3">
                                 {{-- <label class="mb-2 text-muted" for="email">Username</label> --}}
-                                <input id="username" type="text" class="form-control" name="username" placeholder="NIS" required>
+                                <input id="nis" type="text" class="form-control" name="nis" placeholder="NIS" required>
                                 <div class="invalid-feedback">
                                     NIS harus diisi!
                                 </div>
