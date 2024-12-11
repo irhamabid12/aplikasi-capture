@@ -169,6 +169,7 @@
         </div>
         <!-- end::Tab Home -->
 
+        <!-- start::Tab Dropzone file -->
         <div class="tab-pane fade h-100 justify-content-center align-items-center" id="pills-dropzone" role="tabpanel" aria-labelledby="pills-dropzone-tab" tabindex="0">
           <div class="card shadow-md border-0 rounded-3 w-100">
               <div class="card-body">
@@ -176,7 +177,7 @@
                       <label for="fileUpload" class="dropzone-label">
                           <div class="dropzone-text">
                               <i class="bi bi-cloud-arrow-up-fill"></i>
-                              <p>Drag & Drop your files here or click to upload</p>
+                              <p>Click here to upload</p>
                           </div>
                       </label>
                       <input type="file" id="fileUpload" accept="image/*">
@@ -188,11 +189,14 @@
                   </div>
               </div>
           </div>
-        </div> 
+        </div>
+        <!-- end::Tab Dropzone file -->
         
+        <!-- start::Tab Camera -->
         <div class="tab-pane fade h-100 justify-content-center align-items-center" id="pills-camera" role="tabpanel" aria-labelledby="pills-camera-tab" tabindex="0">
             <div class="card shadow-md border-0 rounded-3 w-100">
                 <div class="card-body p-0">
+                    <!-- field camera -->
                     <video id="webcam" autoplay muted style="width: 100%; height: 70vh; object-fit: cover; border-radius: 8px;"></video>
                 </div>
             </div>
@@ -202,9 +206,12 @@
                     Capture
                 </button>
             </div>
-        </div>      
+        </div>   
+        <!-- end::Tab Camera -->  
         
+        <!-- start::Tab Setting -->
         <div class="tab-pane fade" id="pills-setting" role="tabpanel" aria-labelledby="pills-setting-tab" tabindex="0">
+          <!--Tools menu setting -->
           @php
               $tools = [
                 [
@@ -223,8 +230,11 @@
           </div>
         </div>
       </div>
+      <!-- end::Tab Setting -->
       <!-- end::Tab konten -->
   </div>
+
+  <!-- start::menu button -->
   <div class="card-footer text-center">
       <ul class="nav nav-pills mb-3 justify-content-center" id="tab-dasboard" role="tablist">
           <li class="nav-item col text-center" role="presentation">
@@ -250,8 +260,9 @@
 
       </ul>
   </div>
+  <!-- end::menu button -->
 
-  <!-- Modal -->
+  <!-- Modal untuk menampilkan hasil tangkapan camera -->
   <div class="modal fade" id="resultCapture" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="-1" aria-labelledby="resultCaptureLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -259,8 +270,9 @@
           <div class="modal-body text-center">
             <!-- Tempat menampilkan hasil tangkapan -->
             <canvas id="capturedCanvas" style="width: 100%; height: auto; border: 1px solid #ccc;"></canvas>
-            <h4 class="fw-bold mt-3" id="jenisbunga"></h4>
+            <h4 class="fw-bold mt-3" id="jenisbunga"></h4> <!-- Nama bunga yang terdeteksi -->
             <div class="table-responsive mt-3">
+                <!-- Tabel untuk menampilkan hasil akurasi -->
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
@@ -269,12 +281,6 @@
                                 <span id="accuracyResult1" ></span> %
                             </td>
                         </tr>
-                        {{-- <tr>
-                            <th>Accuracy Score DSC</td>
-                            <td id="tb_accuracyResult2">
-                                <span id="accuracyResult2"></span> %
-                            </td>
-                        </tr> --}}
                     </tbody>
                 </table>
             </div>
@@ -286,33 +292,35 @@
       </div>
     </div>
   </div>
+  <!-- end::Modal -->
 </div>
 @endsection
-<script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.9.3/countUp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.9.3/countUp.min.js"></script> <!-- library js countup untuk animasi angka -->
 
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-      const video = document.getElementById('webcam');
-      let webcamStream;
+  document.addEventListener("DOMContentLoaded", () => {  // Memastikan DOM atau dokumen telah selesai dimuat
+      const video = document.getElementById('webcam'); // Mendapatkan elemen video
+      let webcamStream; // Variabel untuk menyimpan stream kamera
 
       // Event listener untuk tab switching
       document.querySelectorAll('button[data-bs-toggle="pill"]').forEach(tabButton => {
-          tabButton.addEventListener('shown.bs.tab', (event) => {
-              const targetTab = event.target.getAttribute('data-bs-target');
+          tabButton.addEventListener('shown.bs.tab', (event) => { // Ketika tab ditampilkan
+              const targetTab = event.target.getAttribute('data-bs-target'); // Mendapatkan target tab
 
-              if (targetTab === "#pills-camera") {
-                  // Tab tengah ditekan, nyalakan webcam
+              if (targetTab === "#pills-camera") { // Jika target tab adalah tab camera, nyalakan webcam
+            
                   let constraints = {
                       video: { facingMode: "environment" } // Default ke kamera belakang
                   };
 
+                  // Cek apakah kamera belakang tersedia
                   navigator.mediaDevices.getUserMedia(constraints)
                       .then((stream) => {
                           webcamStream = stream;
                           video.srcObject = stream;
                       })
-                      .catch((error) => {
+                      .catch((error) => { 
                           console.error("Camera Belakang tidak dapat diakses: ", error);
 
                           // Jika kamera belakang tidak tersedia, fallback ke kamera depan
@@ -320,13 +328,14 @@
                               video: { facingMode: "user" } // Fallback ke kamera depan
                           };
 
+                          // Nyalakan kamera depan
                           navigator.mediaDevices.getUserMedia(constraints)
                               .then((stream) => {
                                   webcamStream = stream;
                                   video.srcObject = stream;
                               })
                               .catch((err) => {
-                                  swal("Error", "Camera tidak dapat diakses.", "error");
+                                  swal("Error", "Camera tidak dapat diakses.", "error"); // Tampilkan pesan error jika kamera tidak dapat diakses
                               });
                       });
               } else {
@@ -339,17 +348,17 @@
           });
       });
 
-      // Tombol Capture
-      const captureButton = document.getElementById('captureButton');
-      const capturedCanvas = document.getElementById('capturedCanvas');
-      const ctx = capturedCanvas.getContext('2d');
-
+      const captureButton = document.getElementById('captureButton'); // Mendapatkan elemen tombol capture
+      const capturedCanvas = document.getElementById('capturedCanvas'); // Mendapatkan elemen canvas
+      const ctx = capturedCanvas.getContext('2d'); // Mendapatkan konteks canvas
+      
+      // Event listener untuk tombol capture
       captureButton.addEventListener("click", () => {
         // Sesuaikan ukuran canvas dengan video
         capturedCanvas.width = video.videoWidth;
         capturedCanvas.height = video.videoHeight;
 
-        // Gambar frame dari video ke canvas
+        // ubah Gambar frame dari video ke canvas
         ctx.drawImage(video, 0, 0, capturedCanvas.width, capturedCanvas.height);
       });
 
@@ -359,10 +368,10 @@
       });
 
 
-      const accuracyElement1 = document.getElementById('accuracyResult1');
-      // const accuracyElement2 = document.getElementById('accuracyResult2');
-      const modal = document.getElementById('resultCapture');
+      const accuracyElement1 = document.getElementById('accuracyResult1'); // Mendapatkan elemen accuracy
+      const modal = document.getElementById('resultCapture'); // Mendapatkan elemen modal
 
+      // fungsi untuk menghasilkan bilangan acak
       function randomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
       }
@@ -374,14 +383,12 @@
           return $('#jenisbunga').text(texts[randomIndex]);
       }
 
+      // Event listener untuk modal
       modal.addEventListener('shown.bs.modal', () => {
-
-          getRandomText();
-          const accuracyValue1 = randomNumber(50, 100);
-          // const accuracyValue2 = randomNumber(50, 100);
+          getRandomText(); // Tampilkan teks acak
+          const accuracyValue1 = randomNumber(50, 100); // Tampilkan bilangan acak
           
-          const countUp1 = new CountUp(accuracyElement1, 0, accuracyValue1);
-          // const countUp2 = new CountUp(accuracyElement2, 0, accuracyValue2);
+          const countUp1 = new CountUp(accuracyElement1, 0, accuracyValue1); // Inisialisasi CountUp untuk animasi 
 
           if (accuracyValue1 >= 80) {
             $('#tb_accuracyResult1').addClass('bg-success');
