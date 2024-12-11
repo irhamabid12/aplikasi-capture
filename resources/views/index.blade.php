@@ -390,6 +390,7 @@
           
           const countUp1 = new CountUp(accuracyElement1, 0, accuracyValue1); // Inisialisasi CountUp untuk animasi 
 
+          // Mengatur warna berdasarkan nilai accuracy, jika >= 80 maka warna hijau, jika < 80 maka warna merah
           if (accuracyValue1 >= 80) {
             $('#tb_accuracyResult1').addClass('bg-success');
             $('#tb_accuracyResult1').removeClass('bg-danger');
@@ -398,90 +399,78 @@
             $('#tb_accuracyResult1').removeClass('bg-success');
           }
 
-          // if (accuracyValue2 >= 80) {
-          //   $('#tb_accuracyResult2').addClass('bg-success');
-          //   $('#tb_accuracyResult2').removeClass('bg-danger');
-          // } else  {
-          //   $('#tb_accuracyResult2').addClass('bg-danger');
-          //   $('#tb_accuracyResult2').removeClass('bg-success');
-          // }
-
+          // Mulai animasi CountUp 
           if (!countUp1.error) {
               countUp1.start();
           } else {
               console.error(countUp1.error);
           }
-
-          // if (!countUp2.error) {
-          //     countUp2.start();
-          // } else {
-          //     console.error(countUp2.error);
-          // }
       });
 
 
 
-      // coding uload file
-      const dropzoneTabButton = document.getElementById('pills-dropzone-tab');
+      // coding upload file
+      const dropzoneTabButton = document.getElementById('pills-dropzone-tab'); // Mendapatkan elemen tab dropzone
     
+      // Event listener untuk tab dropzone
       dropzoneTabButton.addEventListener('click', () => {
           console.log("Dropzone tab button clicked!");
 
-          // Jalankan kode Anda di sini
-          const fileInput = document.getElementById('fileUpload');
-          const resultDisplay = document.getElementById('resultDisplay');
+          const fileInput = document.getElementById('fileUpload'); // Mendapatkan elemen input file
+          const resultDisplay = document.getElementById('resultDisplay'); // Mendapatkan elemen tampilan hasil
 
+          // fungsi untuk menghasilkan bilangan acak
           function randomNumber(min, max) {
               return Math.floor(Math.random() * (max - min + 1)) + min;
           }
 
+          // fungsi untuk menghasilkan teks acak
           function getRandomText() {
               const texts = ["Iris Sentosa", "Iris Virginia", "Iris Versicolor"];
               return texts[Math.floor(Math.random() * texts.length)];
           }
 
+          // Event listener untuk input file, jika terjadi perubahan
           fileInput.addEventListener('change', (event) => {
-              const file = event.target.files[0];
-              if (file) {
-                  const reader = new FileReader();
+              const file = event.target.files[0]; // Mendapatkan file yang diupload
 
+              // Jika ada file yang diupload
+              if (file) {
+                  const reader = new FileReader(); // Membaca file
+
+                  // Ketika file selesai dibaca
                   reader.onload = (e) => {
+                      // Bersihkan hasil sebelumnya
                       resultDisplay.innerHTML = '';
 
-                      const img = document.createElement('img');
-                      img.src = e.target.result;
-                      img.alt = "Uploaded Image";
-                      img.style.maxWidth = "200px";
-                      img.style.borderRadius = "8px";
-                      img.className = "mb-3";
+                      const img = document.createElement('img'); // Membuat elemen gambar
+                      img.src = e.target.result; // Mengatur sumber gambar
+                      img.alt = "Uploaded Image"; // Mengatur teks alternatif gambar
+                      img.style.maxWidth = "200px"; // Mengatur lebar maksimum gambar
+                      img.style.borderRadius = "8px"; // Mengatur sudut gambar
+                      img.className = "mb-3"; // Mengatur kelas gambar untuk margin bawah
 
-                      const irisType = getRandomText();
-                      const accuracy1 = randomNumber(50, 100);
-                      // const accuracy2 = randomNumber(50, 100);
+                      const irisType = getRandomText(); // Mendapatkan teks acak
+                      const accuracy1 = randomNumber(50, 100); // Mendapatkan bilangan acak
 
-                      const irisElement = document.createElement('p');
-                      irisElement.textContent = `Jenis: ${irisType}`;
-                      irisElement.className = "fw-bold";
+                      const irisElement = document.createElement('p'); // Membuat elemen paragraf untuk jenis iris
+                      irisElement.textContent = `Jenis: ${irisType}`; // Mengatur teks paragraf
+                      irisElement.className = "fw-bold"; // Mengatur kelas paragraf
 
-                      const accuracyElement1 = document.createElement('p');
+                      const accuracyElement1 = document.createElement('p'); // Membuat elemen paragraf untuk accuracy
                       accuracyElement1.innerHTML = `Accuracy SVM: <span class="badge ${
                           accuracy1 >= 80 ? 'bg-success' : 'bg-danger'
-                      }">${accuracy1}%</span>`;
+                      }">${accuracy1}%</span>`; // Mengatur teks paragraf, jika >= 80 maka warna hijau, jika < 80 maka warna merah
 
-                      // const accuracyElement2 = document.createElement('p');
-                      // accuracyElement2.innerHTML = `Accuracy 2: <span class="badge ${
-                      //     accuracy2 >= 80 ? 'bg-success' : 'bg-danger'
-                      // }">${accuracy2}%</span>`;
 
-                      resultDisplay.appendChild(img);
-                      resultDisplay.appendChild(irisElement);
-                      resultDisplay.appendChild(accuracyElement1);
-                      // resultDisplay.appendChild(accuracyElement2);
+                      resultDisplay.appendChild(img); // Menambahkan elemen gambar
+                      resultDisplay.appendChild(irisElement); // Menambahkan elemen paragraf untuk jenis iris
+                      resultDisplay.appendChild(accuracyElement1); // Menambahkan elemen paragraf untuk accuracy
                   };
 
-                  reader.readAsDataURL(file);
+                  reader.readAsDataURL(file); // Membaca file sebagai data URL atau base64 kemudian memanggil fungsi reader.onload untuk menampilkan hasil
               } else {
-                  console.error("No file selected");
+                  console.error("No file selected"); // Tampilkan pesan error jika tidak ada file yang diupload
               }
           });
       });
