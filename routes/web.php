@@ -23,5 +23,6 @@ Route::get('/register', function () {
 });
 
 Route::post('/actionRegister', 'App\Http\Controllers\RegisterController@insert')->name('actionRegister');
+Route::post('/actionEdit', 'App\Http\Controllers\RegisterController@insert')->name('actionEdit');
 Route::post('/actionLogin', 'App\Http\Controllers\LoginController@actionlogin')->name('actionLogin');
 Route::get('/logout', 'App\Http\Controllers\LoginController@logout')->name('logout');

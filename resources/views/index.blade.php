@@ -6,7 +6,7 @@
 <!-- start: coding css konten halaman utama -->
 <style>
   .custom-carousel {
-    max-height: 20vh; /* Membatasi tinggi carousel hingga 30% dari viewport height */
+    max-height: 30vh; /* Membatasi tinggi carousel hingga 30% dari viewport height */
     overflow: hidden; /* Memastikan tidak ada konten yang keluar */
   }
 
@@ -111,7 +111,7 @@
                 <!-- Teks -->
                 <div class="col-9 text-start">
                   <h5 class="card-title text-white fw-bold mb-1">{{auth()->user()->nama}}</h5> <!-- Nama user yang sedang login -->
-                  <p class="card-text text-muted fw-semibold mb-0">Researcher</p> <!-- Tipe user yang sedang login -->
+                  <p class="card-text text-muted fw-semibold mb-0">{{auth()->user()->pekerjaan ?? 'Pekerjaan Tidak Diketahui'}}</p> <!-- Tipe user yang sedang login -->
                 </div>
 
               </div>
@@ -221,11 +221,85 @@
               ]
           @endphp
 
+          
+
           <div class="card shadow-md border-0 rounded-3 w-100">
             <div class="card-body p-3 text-start">
-              @foreach ($tools as $menu)
-                <a href="{{ $menu['link'] }}" class="text-decoration-none text-muted fw-semibold">{!! $menu['icon'] !!} &nbsp; {{ $menu['menu'] }}</a>
-              @endforeach
+              <div class="col-12 mb-3 mt-3">
+                <a href="{{ route("logout") }}" class="text-decoration-none text-muted fw-semibold"><i class="bi bi-box-arrow-right text-primary"></i> &nbsp; Logout</a>
+              </div>
+              <div class="col-12 mb-3 mt-3">
+                {{-- <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="text-decoration-none text-muted fw-semibold"><i class="bi bi-pencil-square text-primary"></i> &nbsp; Edit Profile</a> --}}
+
+                <p class="d-inline-flex gap-1">
+                  <a class="text-decoration-none text-muted fw-semibold" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="bi bi-pencil-square text-primary"></i> &nbsp; Edit Profile
+                  </a>
+                </p>
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-body">
+                      <div class="card" style="border: 2px dashed #4CAF50; background: #82d8ad; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                        <div class="card-body">
+                          <div class="row align-items-center">
+                            <div class="col-auto">
+                              <i class="bi bi-exclamation-circle-fill text-success" style="font-size: 50px;"></i>
+                            </div>
+                            <div class="col">
+                              <h5 class="card-title" style="color: #2E7D32;">Perhatian!</h5>
+                              <p class="card-text" style="color: #4B4B4B;">Jika ingin mengubah password, isi password lama dan password baru.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    
+                      <br>
+                      <form method="post" class="needs-validation" novalidate="" autocomplete="off" id="form-edit" action="{{ route('actionEdit') }}">
+                          @csrf
+                          <input type="hidden" name="id" value="{{auth()->user()->id}}">
+                          <div class="mb-3">
+                              <label class="mb-2 text-muted" for="nama-edit">Nama</label>
+                              <input id="nama-edit" type="text" class="form-control" name="nama" placeholder="Masukkan Nama" value="{{auth()->user()->nama}}" required>
+                          </div>
+                          <div class="mb-3">
+                              <label class="mb-2 text-muted" for="pekerjaan-edit">Pekerjaan</label>
+                              <input id="pekerjaan-edit" type="text" class="form-control" name="pekerjaan" placeholder="Masukkan Pekerjaan" value="{{auth()->user()->pekerjaan}}" required>
+                              <div class="invalid-feedback">
+                                  Pekerjaan harus diisi!
+                              </div>
+                          </div>
+                          <div class="mb-3">
+                              <label class="mb-2 text-muted" for="nis-edit">NIS</label>
+                              <input id="nis-edit" type="text" class="form-control" name="nis" placeholder="Masukkan NIS" value="{{auth()->user()->nis}}" required>
+                              <div class="invalid-feedback">
+                                  NIS harus diisi!
+                              </div>
+                          </div>
+                          <div class="mb-3">
+                              <label class="mb-2 text-muted" for="password-edit">Password Lama</label>
+                              <input id="password-lama-edit" type="password" class="form-control" name="old_password" placeholder="Masukkan Password" required>
+                              <div class="invalid-feedback">
+                                  Password harus diisi!
+                              </div>
+                          </div>
+                          <div class="mb-3">
+                            <label class="mb-2 text-muted" for="password-confirm-edit">Password Baru</label>
+                            <input id="password-baru-edit" type="password" class="form-control" name="password" placeholder="Masukkan Password" required>
+                            <div class="invalid-feedback">
+                                Password harus diisi!
+                            </div>
+                        </div>
+
+                          <div class="d-flex ms-auto">
+                              <button type="submit" class="btn btn-primary">
+                                  Update
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+              {{-- @foreach ($tools as $menu)
+              @endforeach --}}
             </div>
           </div>
         </div>
@@ -293,6 +367,8 @@
     </div>
   </div>
   <!-- end::Modal -->
+
+ 
 </div>
 @endsection
 <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.9.3/countUp.min.js"></script> <!-- library js countup untuk animasi angka -->

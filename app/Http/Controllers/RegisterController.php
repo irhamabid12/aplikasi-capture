@@ -25,13 +25,16 @@ class RegisterController extends Controller
         $regis = User::find($request->id ?? 0) ?? new User;
         $regis->nama = $request->nama ?? null;
         $regis->nis = $request->nis ?? null;
-        $regis->password = Hash::make($request->password ?? null);
+        $regis->pekerjaan = $request->pekerjaan ?? null;
+        if ($request->password != null) {
+            $regis->password = Hash::make($request->password ?? null);
+        }
         $regis->save();
 
-        return redirect('/login');
-        try {
-        } catch (\Throwable $th) {
-            return redirect('/register');    
+        if ($request->id) {
+            return redirect('/index');
+        } else {
+            return redirect('/login');
         }
     }
 }

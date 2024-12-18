@@ -17,7 +17,14 @@
                                 {{-- <label class="mb-2 text-muted" for="email">Username</label> --}}
                                 <input id="nama" type="text" class="form-control" name="nama" placeholder="Masukkan Nama" required>
                                 <div class="invalid-feedback">
-                                    NIS harus diisi!
+                                    Nama harus diisi!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                {{-- <label class="mb-2 text-muted" for="email">Username</label> --}}
+                                <input id="pekerjaan" type="text" class="form-control" name="pekerjaan" placeholder="Masukkan Pekerjaan" required>
+                                <div class="invalid-feedback">
+                                    Pekerjaan harus diisi!
                                 </div>
                             </div>
                             <div class="mb-3">
