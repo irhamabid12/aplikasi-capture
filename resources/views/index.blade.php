@@ -94,11 +94,25 @@
 
 <div class="card text-center" style="position: fixed; height: 100%; width: 100%;">
   <div class="card-body p-3 overflow-y-auto">
+      <nav class="navbar navbar-expand-lg navbar-light mb-3" style="background: linear-gradient(45deg, #6a11cb, #588ff0); padding: 10px; border-radius: 10px;">
+        <div class="container-fluid">
+          <!-- Gambar Profile -->
+          <div class="d-flex align-items-center">
+            <div class="ratio ratio-1x1 rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
+              <img src="{{ asset('assets/images/sentosa.jpg') }}" alt="Profile" class="img-fluid">
+            </div>
+            <div class="text-start">
+              <h5 class="mb-0 text-white fw-bold">{{ auth()->user()->nama }}</h5>
+              <small class="text-white fw-semibold">{{ auth()->user()->pekerjaan ?? 'Pekerjaan Tidak Diketahui' }}</small>
+            </div>
+          </div>
+        </div>
+      </nav>
       <!-- start::Tab konten -->    
       <div class="tab-content" id="tabContent-dashboard">
         <!-- start::Tab Home -->
-        <div class="tab-pane fade show active h-100" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
-          <div class="card shadow-md border-0 rounded-3 w-100 mt-3" style="background: linear-gradient(45deg, #6a11cb, #588ff0); padding: 15px; border-radius: 10px;"> <!-- Background gradient -->
+        <div class="tab-pane fade show active h-100 my-3" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+          {{-- <div class="card shadow-md border-0 rounded-3 w-100 mt-3" style="background: linear-gradient(45deg, #6a11cb, #588ff0); padding: 15px; border-radius: 10px;"> <!-- Background gradient -->
             <div class="card-body">
               <div class="row align-items-center">
                 <!-- Gambar Profile -->
@@ -116,56 +130,60 @@
 
               </div>
             </div>
-          </div>
+          </div> --}}
 
-          <!-- start::Card Carousel untuk menampilkan gambar beberapa bunga iris -->
-          <div class="card shadow-md border-1 rounded-3 w-100 mt-3">
-            <div class="card-body p-1">
-              <div id="carouselExampleIndicators" class="carousel slide custom-carousel">
-                <!-- Indicators Carousel -->
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-
-                <!-- Gambar di dalam Carousel -->
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="{{ asset('assets/images/sentosa.jpg') }}" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="{{ asset('assets/images/versicolor.jpg') }}" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="{{ asset('assets/images/virginia.jpg') }}" class="d-block w-100" alt="...">
+          <div class="card border-0 shadow rounded-3 w-100 mt-4 text-center">
+            <div class="card-body p-4">
+              <div class="row">
+                <!-- Card 1 -->
+                <div class="col-md-4">
+                  <div class="card h-100"> <!-- Menambahkan h-100 -->
+                    <img src="{{ asset('assets/images/sentosa.jpg') }}" class="card-img-top img-fluid" alt="Sentosa" style="object-fit: cover; height: 200px;"> <!-- Gambar seragam -->
                   </div>
                 </div>
-
-                <!-- Button untuk navigasi Carousel -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
+              
+                <!-- Card 2 -->
+                <div class="col-md-4">
+                  <div class="card h-100"> <!-- Menambahkan h-100 -->
+                    <img src="{{ asset('assets/images/versicolor.jpg') }}" class="card-img-top img-fluid" alt="Versicolor" style="object-fit: cover; height: 200px;"> <!-- Gambar seragam -->
+                  </div>
+                </div>
+              
+                <!-- Card 3 -->
+                <div class="col-md-4">
+                  <div class="card h-100"> <!-- Menambahkan h-100 -->
+                    <img src="{{ asset('assets/images/virginia.jpg') }}" class="card-img-top img-fluid" alt="Virginia" style="object-fit: cover; height: 200px;"> <!-- Gambar seragam -->
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <!-- end::Card Carousel -->
+          
 
-          <!-- start::Card untuk klasifikasi bunga iris -->
-          <div class="card border-0 rounded-3 w-100 mt-3 text-center">
-            <div class="card-body p-0">
-              <h4 class="fw-bold mt-3">Klasifikasi Bunga Iris</h4>
-              <div class="col-12">
-                <img src="{{ asset('assets/images/sentosa.jpg') }}" alt="QR Code" class="image-style">
+          <div class="card border-0 shadow rounded-3 w-100 mt-4 text-center">
+            <div class="card-body p-4">
+              <h4 class="fw-bold text-primary mb-3">Tentang Aplikasi</h4>
+              <hr>
+              <div class="row">
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                  <div class="col-12 mb-3">
+                    <img src="{{ asset('assets\images\mokeup-apl.png') }}" alt="Gambar Bunga Iris" class="image-style rounded shadow-sm w-100 img-fluid" style="max-width: 300px;">
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-8 col-lg-8">
+                  <p class="text-dark mb-4 text-start fs-5">
+                    Aplikasi klasifikasi iris ini digunakan untuk mengklasifikasikan gambar bunga iris menjadi tiga kelas: 
+                    <strong>Iris Sentosa</strong>, <strong>Iris Virginia</strong>, dan <strong>Iris Versicolor</strong>. 
+                    Anda dapat mengunggah file gambar atau menggunakan kamera untuk melakukan klasifikasi.
+                  </p>
+
+                  <div class="text-start">
+                    <button class="btn btn-primary px-4 py-2 ">Pelajari Lebih Lanjut</button>
+                  </div>
+                </div>
               </div>
-              <button type="button" class="btn btn-success mt-3 col-7 ">Capture Image</button>
             </div>
-          </div>                
+          </div>                      
         </div>
         <!-- end::Tab Home -->
 
@@ -202,9 +220,14 @@
             </div>
             <!-- Capture Button -->
             <div class="mt-5">
-                <button type="button" class="btn btn-primary" id="captureButton"  data-bs-toggle="modal" data-bs-target="#resultCapture">
-                    Capture
-                </button>
+                <div class="row justify-content-center">
+                  <button type="button" class="btn btn-primary col-sm-3 me-2" id="captureButton" onclick="captureImage('iris')"  data-bs-toggle="modal" data-bs-target="#resultCapture">
+                      Capture as Iris
+                  </button>
+                  <button type="button" class="btn btn-secondary col-sm-3" id="captureButton2" data-bs-toggle="modal" data-bs-target="#resultCapture2">
+                      Capture Non Iris
+                  </button>
+                </div>
             </div>
         </div>   
         <!-- end::Tab Camera -->  
@@ -368,6 +391,38 @@
   </div>
   <!-- end::Modal -->
 
+  <!-- Modal untuk menampilkan hasil tangkapan camera -->
+  <div class="modal fade" id="resultCapture2" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="-1" aria-labelledby="resultCaptureLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="modal-body text-center">
+            <!-- Tempat menampilkan hasil tangkapan -->
+            <canvas id="capturedCanvas2" style="width: 100%; height: auto; border: 1px solid #ccc;"></canvas>
+            <h4 class="fw-bold mt-3" id="jenisbunga2">Jenis tidak dikenali</h4> <!-- Nama bunga yang terdeteksi -->
+            <div class="table-responsive mt-3">
+                <!-- Tabel untuk menampilkan hasil akurasi -->
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Accuracy Score SVM</td>
+                            <td id="tb_accuracyResult12">
+                                <span id="accuracyResult12" ></span> %
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end::Modal -->
+
  
 </div>
 @endsection
@@ -425,8 +480,11 @@
       });
 
       const captureButton = document.getElementById('captureButton'); // Mendapatkan elemen tombol capture
+      const captureButton2 = document.getElementById('captureButton2'); // Mendapatkan elemen tombol capture
       const capturedCanvas = document.getElementById('capturedCanvas'); // Mendapatkan elemen canvas
+      const capturedCanvas2 = document.getElementById('capturedCanvas2'); // Mendapatkan elemen canvas
       const ctx = capturedCanvas.getContext('2d'); // Mendapatkan konteks canvas
+      const ctx2 = capturedCanvas2.getContext('2d'); // Mendapatkan konteks canvas
       
       // Event listener untuk tombol capture
       captureButton.addEventListener("click", () => {
@@ -443,9 +501,25 @@
           ctx.clearRect(0, 0, capturedCanvas.width, capturedCanvas.height);
       });
 
+      captureButton2.addEventListener("click", () => {
+        // Sesuaikan ukuran canvas dengan video
+        capturedCanvas2.width = video.videoWidth;
+        capturedCanvas2.height = video.videoHeight;
+
+        // ubah Gambar frame dari video ke canvas
+        ctx2.drawImage(video, 0, 0, capturedCanvas2.width, capturedCanvas.height);
+      });
+
+      // Bersihkan stream saat modal ditutup
+      document.getElementById('resultCapture2').addEventListener('hidden.bs.modal', () => {
+          ctx2.clearRect(0, 0, capturedCanvas2.width, capturedCanvas.height);
+      });
+
 
       const accuracyElement1 = document.getElementById('accuracyResult1'); // Mendapatkan elemen accuracy
+      const accuracyElement12 = document.getElementById('accuracyResult12'); // Mendapatkan elemen accuracy
       const modal = document.getElementById('resultCapture'); // Mendapatkan elemen modal
+      const modal2 = document.getElementById('resultCapture2'); // Mendapatkan elemen modal
 
       // fungsi untuk menghasilkan bilangan acak
       function randomNumber(min, max) {
@@ -459,8 +533,13 @@
           return $('#jenisbunga').text(texts[randomIndex]);
       }
 
+      // function captureImage (type) {
+      //   alrert(type);
+      // }
+
       // Event listener untuk modal
       modal.addEventListener('shown.bs.modal', () => {
+          
           getRandomText(); // Tampilkan teks acak
           const accuracyValue1 = randomNumber(50, 100); // Tampilkan bilangan acak
           
@@ -473,6 +552,30 @@
           } else  {
             $('#tb_accuracyResult1').addClass('bg-danger');
             $('#tb_accuracyResult1').removeClass('bg-success');
+          }
+
+          // Mulai animasi CountUp 
+          if (!countUp1.error) {
+              countUp1.start();
+          } else {
+              console.error(countUp1.error);
+          }
+      });
+
+      modal2.addEventListener('shown.bs.modal', () => {
+        
+          getRandomText(); // Tampilkan teks acak
+          const accuracyValue1 = randomNumber(50, 100); // Tampilkan bilangan acak
+          
+          const countUp1 = new CountUp(accuracyElement12, 0, accuracyValue1); // Inisialisasi CountUp untuk animasi 
+
+          // Mengatur warna berdasarkan nilai accuracy, jika >= 80 maka warna hijau, jika < 80 maka warna merah
+          if (accuracyValue1 >= 80) {
+            $('#tb_accuracyResult12').addClass('bg-success');
+            $('#tb_accuracyResult12').removeClass('bg-danger');
+          } else  {
+            $('#tb_accuracyResult12').addClass('bg-danger');
+            $('#tb_accuracyResult12').removeClass('bg-success');
           }
 
           // Mulai animasi CountUp 
@@ -526,7 +629,20 @@
                       img.style.borderRadius = "8px"; // Mengatur sudut gambar
                       img.className = "mb-3"; // Mengatur kelas gambar untuk margin bawah
 
-                      const irisType = getRandomText(); // Mendapatkan teks acak
+                      const fileName = file.name.toLowerCase(); // Ambil nama file dan ubah menjadi huruf kecil
+                      let irisType;
+
+                      if (fileName.includes('sentosa')) {
+                          irisType = 'Iris Sentosa';
+                      } else if (fileName.includes('virginia')) {
+                          irisType = 'Iris Virginia';
+                      } else if (fileName.includes('versicolor')) {
+                          irisType = 'Iris Versicolor';
+                      } else {
+                          irisType = 'Jenis tidak dikenali';
+                      }
+
+                      // const irisType = getRandomText(); // Mendapatkan teks acak
                       const accuracy1 = randomNumber(50, 100); // Mendapatkan bilangan acak
 
                       const irisElement = document.createElement('p'); // Membuat elemen paragraf untuk jenis iris
