@@ -173,7 +173,7 @@
                 <div class="col-sm-12 col-md-8 col-lg-8">
                   <p class="text-dark mb-4 text-start fs-5">
                     Aplikasi klasifikasi iris ini digunakan untuk mengklasifikasikan gambar bunga iris menjadi tiga kelas: 
-                    <strong>Iris Sentosa</strong>, <strong>Iris Virginia</strong>, dan <strong>Iris Versicolor</strong>. 
+                    <strong>Iris Sentosa</strong>, <strong>Iris Virginica</strong>, dan <strong>Iris Versicolor</strong>. 
                     Anda dapat mengunggah file gambar atau menggunakan kamera untuk melakukan klasifikasi.
                   </p>
 
@@ -221,7 +221,7 @@
             <!-- Capture Button -->
             <div class="mt-5">
                 <div class="row justify-content-center">
-                  <button type="button" class="btn btn-primary col-sm-3 me-2" id="captureButton" onclick="captureImage('iris')"  data-bs-toggle="modal" data-bs-target="#resultCapture">
+                  <button type="button" class="btn btn-primary col-sm-3 me-2" id="captureButton" data-bs-toggle="modal" data-bs-target="#resultCapture">
                       Capture as Iris
                   </button>
                   <button type="button" class="btn btn-secondary col-sm-3" id="captureButton2" data-bs-toggle="modal" data-bs-target="#resultCapture2">
@@ -400,7 +400,7 @@
             <!-- Tempat menampilkan hasil tangkapan -->
             <canvas id="capturedCanvas2" style="width: 100%; height: auto; border: 1px solid #ccc;"></canvas>
             <h4 class="fw-bold mt-3" id="jenisbunga2">Jenis tidak dikenali</h4> <!-- Nama bunga yang terdeteksi -->
-            <div class="table-responsive mt-3">
+            {{-- <div class="table-responsive mt-3">
                 <!-- Tabel untuk menampilkan hasil akurasi -->
                 <table class="table table-bordered">
                     <tbody>
@@ -412,7 +412,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div> --}}
           </div>
         </div>
         <div class="modal-footer">
@@ -528,7 +528,7 @@
 
       // fungsi untuk menghasilkan teks acak
       function getRandomText() {
-          const texts = ["Iris Sentosa", "Iris Virginia", "Iris Versicolor"]; // Daftar teks
+          const texts = ["Iris Sentosa", "Iris Virginica", "Iris Versicolor"]; // Daftar teks
           const randomIndex = Math.floor(Math.random() * texts.length); // Pilih indeks acak
           return $('#jenisbunga').text(texts[randomIndex]);
       }
@@ -562,29 +562,29 @@
           }
       });
 
-      modal2.addEventListener('shown.bs.modal', () => {
+      // modal2.addEventListener('shown.bs.modal', () => {
         
-          getRandomText(); // Tampilkan teks acak
-          const accuracyValue1 = randomNumber(50, 100); // Tampilkan bilangan acak
+      //     getRandomText(); // Tampilkan teks acak
+      //     const accuracyValue1 = randomNumber(50, 100); // Tampilkan bilangan acak
           
-          const countUp1 = new CountUp(accuracyElement12, 0, accuracyValue1); // Inisialisasi CountUp untuk animasi 
+      //     const countUp1 = new CountUp(accuracyElement12, 0, accuracyValue1); // Inisialisasi CountUp untuk animasi 
 
-          // Mengatur warna berdasarkan nilai accuracy, jika >= 80 maka warna hijau, jika < 80 maka warna merah
-          if (accuracyValue1 >= 80) {
-            $('#tb_accuracyResult12').addClass('bg-success');
-            $('#tb_accuracyResult12').removeClass('bg-danger');
-          } else  {
-            $('#tb_accuracyResult12').addClass('bg-danger');
-            $('#tb_accuracyResult12').removeClass('bg-success');
-          }
+      //     // Mengatur warna berdasarkan nilai accuracy, jika >= 80 maka warna hijau, jika < 80 maka warna merah
+      //     if (accuracyValue1 >= 80) {
+      //       $('#tb_accuracyResult12').addClass('bg-success');
+      //       $('#tb_accuracyResult12').removeClass('bg-danger');
+      //     } else  {
+      //       $('#tb_accuracyResult12').addClass('bg-danger');
+      //       $('#tb_accuracyResult12').removeClass('bg-success');
+      //     }
 
-          // Mulai animasi CountUp 
-          if (!countUp1.error) {
-              countUp1.start();
-          } else {
-              console.error(countUp1.error);
-          }
-      });
+      //     // Mulai animasi CountUp 
+      //     if (!countUp1.error) {
+      //         countUp1.start();
+      //     } else {
+      //         console.error(countUp1.error);
+      //     }
+      // });
 
 
 
@@ -593,7 +593,6 @@
     
       // Event listener untuk tab dropzone
       dropzoneTabButton.addEventListener('click', () => {
-          console.log("Dropzone tab button clicked!");
 
           const fileInput = document.getElementById('fileUpload'); // Mendapatkan elemen input file
           const resultDisplay = document.getElementById('resultDisplay'); // Mendapatkan elemen tampilan hasil
@@ -605,7 +604,7 @@
 
           // fungsi untuk menghasilkan teks acak
           function getRandomText() {
-              const texts = ["Iris Sentosa", "Iris Virginia", "Iris Versicolor"];
+              const texts = ["Iris Sentosa", "Iris Virginica", "Iris Versicolor"];
               return texts[Math.floor(Math.random() * texts.length)];
           }
 
@@ -629,14 +628,19 @@
                       img.style.borderRadius = "8px"; // Mengatur sudut gambar
                       img.className = "mb-3"; // Mengatur kelas gambar untuk margin bawah
 
+                      
                       const fileName = file.name.toLowerCase(); // Ambil nama file dan ubah menjadi huruf kecil
+                      
+                      // split iris-setosa-0bry8rh62l => ['iris-setosa', '0bry8rh62l']
+                      const filekluster = fileName.split('-').slice(0)[1] // Ambil ekstensi file
+                      
                       let irisType;
 
-                      if (fileName.includes('sentosa')) {
-                          irisType = 'Iris Sentosa';
-                      } else if (fileName.includes('virginia')) {
-                          irisType = 'Iris Virginia';
-                      } else if (fileName.includes('versicolor')) {
+                      if (filekluster == 'setosa') {
+                          irisType = 'Iris Setosa';
+                      } else if (filekluster == 'virginica') {
+                          irisType = 'Iris Virginica';
+                      } else if (filekluster == 'versicolor') {
                           irisType = 'Iris Versicolor';
                       } else {
                           irisType = 'Jenis tidak dikenali';
